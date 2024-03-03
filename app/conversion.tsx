@@ -408,3 +408,7 @@ var Dish = {
     "Time": 1,
     "AcquisitionMethod": ""
 }
+
+export function DIC(){
+    return dic
+};
