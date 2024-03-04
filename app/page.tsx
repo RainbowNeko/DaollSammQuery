@@ -88,7 +88,7 @@ export default function Home() {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="right">{f_place}</TableCell>
+              <TableCell align="right" style={{ width: '10%' }}>{f_place}</TableCell>
               <TableCell align="center">内容</TableCell>
             </TableRow>
           </TableHead>
@@ -111,7 +111,7 @@ export default function Home() {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="right">{f_guest}</TableCell>
+              <TableCell align="right" style={{ width: '10%' }}>{f_guest}</TableCell>
               <TableCell align="center">内容</TableCell>
             </TableRow>
           </TableHead>
