@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import { Card, Chip, Stack, TextField } from "@mui/material";
+import { Card, Stack, TextField, Tooltip } from "@mui/material";
 import { DIC, GUEST_INFO, PLACE_INFO } from "./conversion";
 import MenuItem from '@mui/material/MenuItem';
 import AppBar from '@mui/material/AppBar';
@@ -11,13 +11,14 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import Table from '@mui/material/Table';
+import Table from '@mui/joy/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Chip from '@mui/joy/Chip';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useState } from 'react';
 const currencies = DIC();
@@ -83,80 +84,58 @@ export default function Home() {
         </Grid>
       </Grid>
 
+      <Table>
+        <thead>
+          <tr>
+            <th style={{ width: '10%' }}>{f_place}</th>
+            <th>内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>出现的人物</td><td>{res_place.出现的人物.map(c => { return <Chip key={"1"}>{c}</Chip> })}</td>
+          </tr>
+          <tr>
+            <td>推荐菜单</td><td>{res_place.推荐菜单.map(c => { return <Chip key={"2"}>{c}</Chip> })}</td>
+          </tr>
+          <tr>
+            <td> 推荐酒水</td><td>{res_place.推荐酒水.map(c => { return <Chip key={"3"}>{c}</Chip> })}</td>
+          </tr>
+        </tbody>
+      </Table>
       <br />
-      <TableContainer component={Card}>
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="right" style={{ width: '10%' }}>{f_place}</TableCell>
-              <TableCell align="center">内容</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <TableRow key="出现的人物">
-              <TableCell align="right">出现的人物</TableCell>
-              <TableCell align="left">{res_place.出现的人物.map(c => { return <Chip key={c} label={c}></Chip> })}</TableCell>
-            </TableRow>
-            <TableRow key="推荐菜单">
-              <TableCell align="right">推荐菜单</TableCell>
-              <TableCell align="left">{res_place.推荐菜单.map(c => { return <Chip key={c} label={c}></Chip> })}</TableCell>
-            </TableRow>
-            <TableRow key="推荐酒水">
-              <TableCell align="right">推荐酒水</TableCell>
-              <TableCell align="left">{res_place.推荐酒水.map(c => { return <Chip key={c} label={c}></Chip> })}</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
 
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="right" style={{ width: '10%' }}>{f_guest}</TableCell>
-              <TableCell align="center">内容</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <TableRow key="推荐菜单">
-              <TableCell align="right">推荐菜单</TableCell>
-              <TableCell align="left">
-                {
-                  res_guest.推荐菜单.map(c => { return <Chip key={c} label={c}></Chip> })
-                }
-              </TableCell>
-
-            </TableRow>
-            <TableRow key="推荐酒水">
-              <TableCell align="right">推荐酒水</TableCell>
-              <TableCell align="left">
-                {
-                  res_guest.推荐酒水.map(c => { return <Chip key={c} label={c}></Chip> })
-                }
-
-              </TableCell>
-            </TableRow>
-            <TableRow key="出没地点">
-              <TableCell align="right">出没地点</TableCell>
-              <TableCell align="left">{res_guest.人物属性.frequent_occurrence.map(c => { return <Chip key={c} label={c}></Chip> })}</TableCell>
-            </TableRow>
-            <TableRow key="喜爱的菜单">
-              <TableCell align="right">喜爱的菜单</TableCell>
-              <TableCell align="left">{res_guest.人物属性.like.map(c => { return <Chip key={c} label={c}></Chip> })}</TableCell>
-            </TableRow>
-            <TableRow key="喜爱的酒水">
-              <TableCell align="right">喜爱的酒水</TableCell>
-              <TableCell align="left">{res_guest.人物属性.likewine.map(c => { return <Chip key={c} label={c}></Chip> })}</TableCell>
-            </TableRow>
-            <TableRow key="携带金额">
-              <TableCell align="right">携带金额</TableCell>
-              <TableCell align="left">{res_guest.人物属性.money}</TableCell>
-            </TableRow>
-            <TableRow key="不喜爱">
-              <TableCell align="right">不喜爱</TableCell>
-              <TableCell align="left">{res_guest.人物属性.unlike.map(c => { return <Chip key={c} label={c}></Chip> })}</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <Table>
+        <thead>
+          <tr>
+            <th style={{ width: '10%' }}>{f_guest}</th>
+            <th>内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>出没地点</td><td>{res_guest.人物属性.frequent_occurrence.map(c => { return <Chip key={"4"}>{c}</Chip> })}</td>
+          </tr>
+          <tr>
+            <td >喜爱的菜单</td><td>{res_guest.人物属性.like.map(c => { return <Chip key={"5"}>{c}</Chip> })}</td>
+          </tr>
+          <tr>
+            <td >喜爱的酒水</td><td>{res_guest.人物属性.likewine.map(c => { return <Chip key={"6"}>{c}</Chip> })}</td>
+          </tr>
+          <tr>
+            <td >不喜爱</td><td>{res_guest.人物属性.unlike.map(c => { return <Chip key={"7"}>{c}</Chip> })}</td>
+          </tr>
+          <tr>
+            <td>携带金额</td><td>{res_guest.人物属性.money}</td>
+          </tr>
+          <tr>
+            <td>推荐菜单</td><td>{res_guest.推荐菜单.map(c => { return <Chip key={"8"}>{c}</Chip> })}</td>
+          </tr>
+          <tr>
+            <td>推荐酒水</td><td>{res_guest.推荐酒水.map(c => { return <Chip key={"9"}>{c}</Chip> })}</td>
+          </tr>
+        </tbody>
+      </Table>
     </Box>
   );
 }

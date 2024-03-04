@@ -372,7 +372,6 @@ interface Ingredients {
 }
 
 interface Dish {
-    "Name": string,
     "Kitchenware": string,
     "Ingredients": string[],
     "Price": number,
@@ -421,6 +420,8 @@ interface PersonInfo {
 }
 
 var ingredients = new Map<string, Ingredients>();
+var dishs = new Map<string,Dish>()
+
 
 var personInfo = new Map<string, PersonInfo>();
 
