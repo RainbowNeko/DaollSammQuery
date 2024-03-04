@@ -500,14 +500,22 @@ export function GUEST_INFO(name: string) {
         推荐酒水: []//
     }
     稀客.filter(xk => xk.名称 == name).forEach(k => {
-        k["喜好·料理"].split("、").forEach(i => rg.推荐菜单.push(i))
-        k["喜好·酒水"].split("、").forEach(i => rg.推荐酒水.push(i))
+        k["喜好·料理"].split("、").forEach(i => {
+            料理.filter(e=>e.正特性.includes(i)).forEach(i=>rg.推荐菜单.push(i.名称))
+        })
+        k["喜好·酒水"].split("、").forEach(i => {
+            酒水.filter(e=>e.特性.includes(i)).forEach(i=>rg.推荐酒水.push(i.名称))
+        })
         rg.推荐菜单 = Array.from(new Set(rg.推荐菜单))
         rg.推荐酒水 = Array.from(new Set(rg.推荐酒水))
     })
     普客.filter(pk => pk.名称 == name).forEach(k => {
-        k["喜好·料理"].split("、").forEach(i => rg.推荐菜单.push(i))
-        k["喜好·酒水"].split("、").forEach(i => rg.推荐酒水.push(i))
+        k["喜好·料理"].split("、").forEach(i => {
+            料理.filter(e=>e.正特性.includes(i)).forEach(i=>rg.推荐菜单.push(i.名称))
+        })
+        k["喜好·酒水"].split("、").forEach(i => {
+            酒水.filter(e=>e.特性.includes(i)).forEach(i=>rg.推荐酒水.push(i.名称))
+        })
         rg.推荐菜单 = Array.from(new Set(rg.推荐菜单))
         rg.推荐酒水 = Array.from(new Set(rg.推荐酒水))
     })
