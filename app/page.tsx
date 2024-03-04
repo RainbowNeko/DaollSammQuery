@@ -34,14 +34,14 @@ export default function Home() {
     setf_place(name)
     var pi = PLACE_INFO(f_place)
     setrres_place(pi)
-    console.log(pi)
+    // console.log(pi)
   }
 
   const GetGuest = (name: string) => {
     setf_guest(name)
     var gi = GUEST_INFO(f_guest)
     setrres_guest(gi)
-    console.log(gi)
+    // console.log(gi)
   }
 
   return (
