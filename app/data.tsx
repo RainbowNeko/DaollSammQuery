@@ -518,6 +518,26 @@ export function PLACE_INFO(local: string) {
     rp.推荐菜单 = like料理
     rp.推荐酒水 = like酒水
 
+    // 可获取的食材
+    var 可获取的食材: string[] = []
+    食材.forEach(sc => {
+        if (sc["获取方式（仅采集和购买）"].includes(local)) {
+            可获取的食材.push(sc.名称)
+        }
+    })
+    可获取的食材 = Array.from(new Set(可获取的食材))
+    rp.可获取的食材 = 可获取的食材
+
+    // 可获取的料理
+    var 可获取的料理: string[] = []
+    料理.forEach(ll => {
+        if (ll.获取方式.includes(local)) {
+            可获取的料理.push(ll.名称)
+        }
+    })
+    可获取的料理 = Array.from(new Set(可获取的料理))
+    rp.可获取的料理 = 可获取的料理
+    
 
     return rp
 };
