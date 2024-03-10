@@ -446,6 +446,7 @@ export function PERSON_INFO() {
 interface RESPONS_PLACE {
     出现的人物: string[],
     推荐菜单: string[],
+    推荐食材: string[],
     推荐酒水: string[],
     可获取的食材: string[],
     可获取的料理: string[]
@@ -464,7 +465,8 @@ export function PLACE_INFO(local: string) {
         推荐菜单: [],
         推荐酒水: [],
         可获取的食材: [],
-        可获取的料理: []
+        可获取的料理: [],
+        推荐食材: []
     }
     // 出现的人物
     personInfo.forEach((pi, name) => {
@@ -512,12 +514,13 @@ export function PLACE_INFO(local: string) {
         })
     })
 
-    like食材 = Array.from(new Set(like料理))
+    like食材 = Array.from(new Set(like食材))
     like料理 = Array.from(new Set(like料理))
     like酒水 = Array.from(new Set(like酒水))
 
     rp.推荐菜单 = like料理
     rp.推荐酒水 = like酒水
+    rp.推荐食材 = like食材
 
     // 可获取的食材
     var 可获取的食材: string[] = []

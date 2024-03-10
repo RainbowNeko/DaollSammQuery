@@ -111,6 +111,9 @@ export default function Home() {
             <td> 推荐酒水</td><td>{res_place.推荐酒水.map(c => { return <Chip key={c}>{c}</Chip> })}</td>
           </tr>
           <tr>
+            <td> 推荐食材</td><td>{res_place.推荐食材.map(c => { return <Chip key={c}>{c}</Chip> })}</td>
+          </tr>
+          <tr>
             <td> 可获取的食材</td><td>{res_place.可获取的食材.map(c => { return <Chip key={c}>{c}</Chip> })}</td>
           </tr>
           <tr>
