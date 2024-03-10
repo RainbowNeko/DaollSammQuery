@@ -460,7 +460,7 @@ interface RESPONS_GUEST {
 export function PLACE_INFO(local: string) {
     var rp: RESPONS_PLACE = {
         出现的人物: [],
-        推荐菜单: ["1"],
+        推荐菜单: [],
         推荐酒水: ["2"],
         可获取的食材: ["3"],
         可获取的料理: ["4"]
@@ -473,15 +473,21 @@ export function PLACE_INFO(local: string) {
             }
         })
     })
-    // 推荐菜单
+    // 推荐菜单、酒水
     var like标签: string[] = []
+    var like酒水标签: string[] = []
     var like食材: string[] = []
     var like料理: string[] = []
+    var like酒水: string[] = []
     rp.出现的人物.forEach(personName => {
         personInfo.get(personName)?.like.forEach(pLike => {
             like标签.push(pLike)
         })
+        personInfo.get(personName)?.likewine.forEach(pwLike => {
+            like酒水标签.push(pwLike)
+        })
     })
+
     like标签 = Array.from(new Set(like标签))
     like标签.forEach(pLike => {
         食材.forEach(sc => {
@@ -495,9 +501,23 @@ export function PLACE_INFO(local: string) {
             }
         })
     })
+
+    like酒水标签 = Array.from(new Set(like酒水标签))
+    like酒水标签.forEach(pwLike => {
+        酒水.forEach(js => {
+            if (js.特性.includes(pwLike)) {
+                like酒水.push(js.名称)
+            }
+        })
+    })
+
     like食材 = Array.from(new Set(like料理))
     like料理 = Array.from(new Set(like料理))
-    rp.推荐菜单=like料理
+    like酒水 = Array.from(new Set(like酒水))
+
+    rp.推荐菜单 = like料理
+    rp.推荐酒水 = like酒水
+
 
     return rp
 };
