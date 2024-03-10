@@ -459,19 +459,45 @@ interface RESPONS_GUEST {
 
 export function PLACE_INFO(local: string) {
     var rp: RESPONS_PLACE = {
-        出现的人物: [],//
+        出现的人物: [],
         推荐菜单: ["1"],
         推荐酒水: ["2"],
         可获取的食材: ["3"],
         可获取的料理: ["4"]
     }
+    // 出现的人物
     personInfo.forEach((pi, name) => {
         pi.frequent_occurrence.forEach(vfo => {
-            if (vfo==local) {
+            if (vfo == local) {
                 rp.出现的人物.push(name)
             }
         })
     })
+    // 推荐菜单
+    var like标签: string[] = []
+    var like食材: string[] = []
+    var like料理: string[] = []
+    rp.出现的人物.forEach(personName => {
+        personInfo.get(personName)?.like.forEach(pLike => {
+            like标签.push(pLike)
+        })
+    })
+    like标签 = Array.from(new Set(like标签))
+    like标签.forEach(pLike => {
+        食材.forEach(sc => {
+            if (sc.特性.includes(pLike)) {
+                like食材.push(sc.名称)
+            }
+        })
+        料理.forEach(ll => {
+            if (ll.正特性.includes(pLike) && ll.反特性.includes(pLike) == false) {
+                like料理.push(ll.名称)
+            }
+        })
+    })
+    like食材 = Array.from(new Set(like料理))
+    like料理 = Array.from(new Set(like料理))
+    rp.推荐菜单=like料理
 
     return rp
 };
