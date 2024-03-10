@@ -434,7 +434,7 @@ interface PersonInfo {
 }
 
 var ingredients = new Map<string, Ingredients>();
-var dishs = new Map<string,Dish>()
+var dishs = new Map<string, Dish>()
 
 
 var personInfo = new Map<string, PersonInfo>();
@@ -491,12 +491,18 @@ export function PLACE_INFO(local: string) {
     }
     稀客.filter(xk => xk["出没地点（非邀请状态下三级店）"].includes(local)).forEach(k => {
         rp.出现的人物.push(k.名称)
-        k["喜好·料理"].split("、").forEach(i => rp.推荐菜单.push(i))
+        k["喜好·料理"].split("、").forEach(i => {
+            k["厌恶·料理"].split("、").forEach(ni => {
+                if (i != ni) {
+                    rp.推荐菜单.push(i)
+                }
+            })
+        })
         k["喜好·酒水"].split("、").forEach(i => rp.推荐酒水.push(i))
         rp.推荐菜单 = Array.from(new Set(rp.推荐菜单))
         rp.推荐酒水 = Array.from(new Set(rp.推荐酒水))
     })
-    普客.filter(pk => pk.出没地点 .includes(local) ).forEach(k => {
+    普客.filter(pk => pk.出没地点.includes(local)).forEach(k => {
         rp.出现的人物.push(k.名称)
         k["喜好·料理"].split("、").forEach(i => rp.推荐菜单.push(i))
         k["喜好·酒水"].split("、").forEach(i => rp.推荐酒水.push(i))
@@ -516,20 +522,28 @@ export function GUEST_INFO(name: string) {
     }
     稀客.filter(xk => xk.名称 == name).forEach(k => {
         k["喜好·料理"].split("、").forEach(i => {
-            料理.filter(e=>e.正特性.includes(i)).forEach(i=>rg.推荐菜单.push(i.名称))
+            料理.filter(e => e.正特性.includes(i)).forEach(i => {
+                k["厌恶·料理"].split("、").forEach(ni => {
+                    i.反特性.split("、").forEach(nni => {
+                        if (nni != ni) {
+                            rg.推荐菜单.push(i.名称)
+                        }
+                    })
+                })
+            })
         })
         k["喜好·酒水"].split("、").forEach(i => {
-            酒水.filter(e=>e.特性.includes(i)).forEach(i=>rg.推荐酒水.push(i.名称))
+            酒水.filter(e => e.特性.includes(i)).forEach(i => rg.推荐酒水.push(i.名称))
         })
         rg.推荐菜单 = Array.from(new Set(rg.推荐菜单))
         rg.推荐酒水 = Array.from(new Set(rg.推荐酒水))
     })
     普客.filter(pk => pk.名称 == name).forEach(k => {
         k["喜好·料理"].split("、").forEach(i => {
-            料理.filter(e=>e.正特性.includes(i)).forEach(i=>rg.推荐菜单.push(i.名称))
+            料理.filter(e => e.正特性.includes(i)).forEach(i => rg.推荐菜单.push(i.名称))
         })
         k["喜好·酒水"].split("、").forEach(i => {
-            酒水.filter(e=>e.特性.includes(i)).forEach(i=>rg.推荐酒水.push(i.名称))
+            酒水.filter(e => e.特性.includes(i)).forEach(i => rg.推荐酒水.push(i.名称))
         })
         rg.推荐菜单 = Array.from(new Set(rg.推荐菜单))
         rg.推荐酒水 = Array.from(new Set(rg.推荐酒水))
