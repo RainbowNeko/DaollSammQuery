@@ -16,7 +16,7 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import { Card, Stack, TextField, Tooltip } from "@mui/material";
-import { DIC, GUEST_INFO, PLACE_INFO } from "./conversion";
+import { DIC, GUEST_INFO, PLACE_INFO } from "./data";
 import MenuItem from '@mui/material/MenuItem';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -114,6 +114,12 @@ export default function Home() {
           <tr>
             <td> 推荐酒水</td><td>{res_place.推荐酒水.map(c => { return <Chip key={"3"}>{c}</Chip> })}</td>
           </tr>
+          <tr>
+            <td> 可获取的食材</td><td>{res_place.可获取的食材.map(c => { return <Chip key={"4"}>{c}</Chip> })}</td>
+          </tr>
+          <tr>
+            <td> 可获取的料理</td><td>{res_place.可获取的料理.map(c => { return <Chip key={"5"}>{c}</Chip> })}</td>
+          </tr>
         </tbody>
       </Table>
       <br />
@@ -127,25 +133,25 @@ export default function Home() {
         </thead>
         <tbody>
           <tr>
-            <td>出没地点</td><td>{res_guest.人物属性.frequent_occurrence.map(c => { return <Chip key={"4"}>{c}</Chip> })}</td>
+            <td>出没地点</td><td>{res_guest.人物属性.frequent_occurrence.map(c => { return <Chip key={"6"}>{c}</Chip> })}</td>
           </tr>
           <tr>
-            <td >喜爱的菜单</td><td>{res_guest.人物属性.like.map(c => { return <Chip key={"5"}>{c}</Chip> })}</td>
+            <td >喜爱的菜单</td><td>{res_guest.人物属性.like.map(c => { return <Chip key={"7"}>{c}</Chip> })}</td>
           </tr>
           <tr>
-            <td >喜爱的酒水</td><td>{res_guest.人物属性.likewine.map(c => { return <Chip key={"6"}>{c}</Chip> })}</td>
+            <td >喜爱的酒水</td><td>{res_guest.人物属性.likewine.map(c => { return <Chip key={"8"}>{c}</Chip> })}</td>
           </tr>
           <tr>
-            <td >不喜爱</td><td>{res_guest.人物属性.unlike.map(c => { return <Chip key={"7"}>{c}</Chip> })}</td>
+            <td >不喜爱</td><td>{res_guest.人物属性.unlike.map(c => { return <Chip key={"9"}>{c}</Chip> })}</td>
           </tr>
           <tr>
             <td>携带金额</td><td>{res_guest.人物属性.money}</td>
           </tr>
           <tr>
-            <td>推荐菜单</td><td>{res_guest.推荐菜单.map(c => { return <Chip key={"8"}>{c}</Chip> })}</td>
+            <td>推荐菜单</td><td>{res_guest.推荐菜单.map(c => { return <Chip key={"10"}>{c}</Chip> })}</td>
           </tr>
           <tr>
-            <td>推荐酒水</td><td>{res_guest.推荐酒水.map(c => { return <Chip key={"9"}>{c}</Chip> })}</td>
+            <td>推荐酒水</td><td>{res_guest.推荐酒水.map(c => { return <Chip key={"11"}>{c}</Chip> })}</td>
           </tr>
         </tbody>
       </Table>
