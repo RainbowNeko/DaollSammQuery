@@ -147,6 +147,9 @@ export default function Home() {
             <td>推荐菜单</td><td>{res_guest.推荐菜单.map(c => { return <Chip key={c}>{c}</Chip> })}</td>
           </tr>
           <tr>
+            <td>推荐食材</td><td>{res_guest.推荐食材.map(c => { return <Chip key={c}>{c}</Chip> })}</td>
+          </tr>
+          <tr>
             <td>推荐酒水</td><td>{res_guest.推荐酒水.map(c => { return <Chip key={c}>{c}</Chip> })}</td>
           </tr>
         </tbody>

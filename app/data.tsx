@@ -454,6 +454,7 @@ interface RESPONS_PLACE {
 interface RESPONS_GUEST {
     人物属性: PersonInfo,
     推荐菜单: string[],
+    推荐食材: string[],
     推荐酒水: string[]
 }
 
@@ -461,9 +462,9 @@ export function PLACE_INFO(local: string) {
     var rp: RESPONS_PLACE = {
         出现的人物: [],
         推荐菜单: [],
-        推荐酒水: ["2"],
-        可获取的食材: ["3"],
-        可获取的料理: ["4"]
+        推荐酒水: [],
+        可获取的食材: [],
+        可获取的料理: []
     }
     // 出现的人物
     personInfo.forEach((pi, name) => {
@@ -537,7 +538,7 @@ export function PLACE_INFO(local: string) {
     })
     可获取的料理 = Array.from(new Set(可获取的料理))
     rp.可获取的料理 = 可获取的料理
-    
+
 
     return rp
 };
@@ -545,9 +546,39 @@ export function PLACE_INFO(local: string) {
 export function GUEST_INFO(name: string) {
     var rg: RESPONS_GUEST = {
         人物属性: personInfo.get(name)!,
-        推荐菜单: ["5"],
-        推荐酒水: ["6"]
+        推荐菜单: [],
+        推荐酒水: [],
+        推荐食材: []
     }
 
+    var 推荐食材: string[] = []
+    var 推荐菜单: string[] = []
+    var 推荐酒水: string[] = []
+    personInfo.get(name)?.like.forEach(like => {
+        食材.forEach(sc => {
+            if (sc.特性.includes(like)) {
+                推荐食材.push(sc.名称)
+            }
+        })
+        料理.forEach(ll => {
+            if (ll.正特性.includes(like) && ll.反特性.includes(like) == false) {
+                推荐菜单.push(ll.名称)
+            }
+        })
+    })
+    personInfo.get(name)?.likewine.forEach(wlike => {
+        酒水.forEach(js => {
+            if (js.特性.includes(wlike)) {
+                推荐酒水.push(js.名称)
+            }
+        })
+    })
+
+    推荐食材 = Array.from(new Set(推荐食材))
+    推荐菜单 = Array.from(new Set(推荐菜单))
+    推荐酒水 = Array.from(new Set(推荐酒水))
+    rg.推荐菜单 = 推荐菜单
+    rg.推荐食材 = 推荐食材
+    rg.推荐酒水 = 推荐酒水
     return rg
 };
