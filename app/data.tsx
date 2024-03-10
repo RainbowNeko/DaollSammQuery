@@ -420,14 +420,6 @@ var personInfo = new Map<string, PersonInfo>();
 
 dic.Guest.forEach(guest => {
     稀客.filter(xk => xk.名称 == guest).forEach(k => {
-        var lk: string = ""
-        k["喜好·料理"].split("、").forEach(i => {
-            k["厌恶·料理"].split("、").forEach(ni => {
-                if (i != ni) {
-                    lk += "、" + i
-                }
-            })
-        })
         personInfo.set(guest, {
             money: k.携带金额,
             frequent_occurrence: k["出没地点（非邀请状态下三级店）"].split("、"),
@@ -467,17 +459,16 @@ interface RESPONS_GUEST {
 
 export function PLACE_INFO(local: string) {
     var rp: RESPONS_PLACE = {
-        出现的人物: [],
-        推荐菜单: [],
-        推荐酒水: [],
-        可获取的食材: [],
-        可获取的料理: []
+        出现的人物: [],//
+        推荐菜单: ["1"],
+        推荐酒水: ["2"],
+        可获取的食材: ["3"],
+        可获取的料理: ["4"]
     }
-    console.log(personInfo)
-    personInfo.forEach((v, k) => {
-        v.frequent_occurrence.forEach(vfo => {
-            if (local == vfo) {
-                rp.出现的人物.push(k)
+    personInfo.forEach((pi, name) => {
+        pi.frequent_occurrence.forEach(vfo => {
+            if (vfo==local) {
+                rp.出现的人物.push(name)
             }
         })
     })
@@ -488,8 +479,8 @@ export function PLACE_INFO(local: string) {
 export function GUEST_INFO(name: string) {
     var rg: RESPONS_GUEST = {
         人物属性: personInfo.get(name)!,
-        推荐菜单: [],
-        推荐酒水: []
+        推荐菜单: ["5"],
+        推荐酒水: ["6"]
     }
 
     return rg
