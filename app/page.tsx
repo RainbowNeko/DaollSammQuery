@@ -64,7 +64,7 @@ export default function Home() {
       </AppBar>
       <br /><br />
 
-      <Grid container justifyContent="center" spacing={4}>
+      <Grid container justifyContent="center" spacing={2}>
         <Grid xs={6}>
           <TextField onChange={(v) => GetPlace(v.target.value)} id="outlined-select-currency" select label="选择一个地点" defaultValue="魔法森林" helperText=" " fullWidth>
             {
