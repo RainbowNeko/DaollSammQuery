@@ -1,5 +1,7 @@
 // Copyright 2024 Core2002
 
+import { list } from "postcss"
+
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -387,7 +389,7 @@ var dic: OverView = {
 料理.forEach(dish => {
     dic.Dish.push(dish.名称)
 })
-dic.Dish = Array.from(new Set(dic.Dish))
+dic.Dish = SortingByFrequencyAndRemovingDuplicates(dic.Dish)
 
 稀客.forEach(guest => {
     guest["出没地点（非邀请状态下三级店）"].split("、").forEach(s => {
@@ -401,8 +403,8 @@ dic.Dish = Array.from(new Set(dic.Dish))
     })
     dic.Guest.push(guest.名称)
 })
-dic.PlaceName = Array.from(new Set(dic.PlaceName))
-dic.Guest = Array.from(new Set(dic.Guest))
+dic.PlaceName = SortingByFrequencyAndRemovingDuplicates(dic.PlaceName)
+dic.Guest = SortingByFrequencyAndRemovingDuplicates(dic.Guest)
 
 export function DIC() {
     return dic
@@ -459,6 +461,31 @@ interface RESPONS_GUEST {
     推荐酒水: string[]
 }
 
+function SortingByFrequencyAndRemovingDuplicates<T>(arr: T[]): T[] {
+    var tmp: Map<T, number> = new Map<T, number>()
+    arr.forEach(f => {
+        if (tmp.has(f)) {
+            tmp.set(f, tmp.get(f)! + 1)
+        } else {
+            tmp.set(f, 1)
+        }
+    })
+    var tmp_new: number[] = []
+    tmp.forEach((v, k) => {
+        tmp_new.push(v)
+    })
+    tmp_new.sort((a, b) => b - a)
+    var out: T[] = []
+    tmp_new.forEach(i => {
+        tmp.forEach((v, k) => {
+            if (v == i) {
+                out.push(k)
+            }
+        })
+    })
+    return Array.from(new Set((arr)))
+}
+
 export function PLACE_INFO(local: string) {
     var rp: RESPONS_PLACE = {
         出现的人物: [],
@@ -491,7 +518,7 @@ export function PLACE_INFO(local: string) {
         })
     })
 
-    like标签 = Array.from(new Set(like标签))
+    like标签 = SortingByFrequencyAndRemovingDuplicates(like标签)
     like标签.forEach(pLike => {
         食材.forEach(sc => {
             if (sc.特性.includes(pLike)) {
@@ -505,7 +532,7 @@ export function PLACE_INFO(local: string) {
         })
     })
 
-    like酒水标签 = Array.from(new Set(like酒水标签))
+    like酒水标签 = SortingByFrequencyAndRemovingDuplicates(like酒水标签)
     like酒水标签.forEach(pwLike => {
         酒水.forEach(js => {
             if (js.特性.includes(pwLike)) {
@@ -514,9 +541,9 @@ export function PLACE_INFO(local: string) {
         })
     })
 
-    like食材 = Array.from(new Set(like食材))
-    like料理 = Array.from(new Set(like料理))
-    like酒水 = Array.from(new Set(like酒水))
+    like食材 = SortingByFrequencyAndRemovingDuplicates(like食材)
+    like料理 = SortingByFrequencyAndRemovingDuplicates(like料理)
+    like酒水 = SortingByFrequencyAndRemovingDuplicates(like酒水)
 
     rp.推荐菜单 = like料理
     rp.推荐酒水 = like酒水
@@ -529,7 +556,7 @@ export function PLACE_INFO(local: string) {
             可获取的食材.push(sc.名称)
         }
     })
-    可获取的食材 = Array.from(new Set(可获取的食材))
+    可获取的食材 = SortingByFrequencyAndRemovingDuplicates(可获取的食材)
     rp.可获取的食材 = 可获取的食材
 
     // 可获取的料理
@@ -539,10 +566,8 @@ export function PLACE_INFO(local: string) {
             可获取的料理.push(ll.名称)
         }
     })
-    可获取的料理 = Array.from(new Set(可获取的料理))
+    可获取的料理 = SortingByFrequencyAndRemovingDuplicates(可获取的料理)
     rp.可获取的料理 = 可获取的料理
-
-
     return rp
 };
 
@@ -577,9 +602,9 @@ export function GUEST_INFO(name: string) {
         })
     })
 
-    推荐食材 = Array.from(new Set(推荐食材))
-    推荐菜单 = Array.from(new Set(推荐菜单))
-    推荐酒水 = Array.from(new Set(推荐酒水))
+    推荐食材 = SortingByFrequencyAndRemovingDuplicates(推荐食材)
+    推荐菜单 = SortingByFrequencyAndRemovingDuplicates(推荐菜单)
+    推荐酒水 = SortingByFrequencyAndRemovingDuplicates(推荐酒水)
     rg.推荐菜单 = 推荐菜单
     rg.推荐食材 = 推荐食材
     rg.推荐酒水 = 推荐酒水
