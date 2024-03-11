@@ -460,31 +460,25 @@ interface RESPONS_GUEST {
     推荐食材: string[],
     推荐酒水: string[]
 }
-
 function SortingByFrequencyAndRemovingDuplicates<T>(arr: T[]): T[] {
-    var tmp: Map<T, number> = new Map<T, number>()
-    arr.forEach(f => {
-        if (tmp.has(f)) {
-            tmp.set(f, tmp.get(f)! + 1)
+    const frequencyMap = new Map<T, number>()
+    arr.forEach((el) => {
+        if (frequencyMap.has(el)) {
+            frequencyMap.set(el, frequencyMap.get(el)! + 1)
         } else {
-            tmp.set(f, 1)
+            frequencyMap.set(el, 1)
         }
     })
-    var tmp_new: number[] = []
-    tmp.forEach((v, k) => {
-        tmp_new.push(v)
+
+    const frequencyList = Array.from(frequencyMap.entries()).sort((a, b) => b[1] - a[1])
+
+    const result: T[] = []
+    frequencyList.forEach(([el, count]) => {
+        result.push(el)
     })
-    tmp_new.sort((a, b) => b - a)
-    var out: T[] = []
-    tmp_new.forEach(i => {
-        tmp.forEach((v, k) => {
-            if (v == i) {
-                out.push(k)
-            }
-        })
-    })
-    return Array.from(new Set((arr)))
+    return result
 }
+
 
 export function PLACE_INFO(local: string) {
     var rp: RESPONS_PLACE = {
