@@ -1,6 +1,5 @@
 // Copyright 2024 Core2002
 
-import { list } from "postcss"
 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -460,7 +459,12 @@ interface RESPONS_GUEST {
     推荐食材: string[],
     推荐酒水: string[]
 }
+
 function SortingByFrequencyAndRemovingDuplicates<T>(arr: T[]): T[] {
+    if (arr == null || arr.length <= 1) {
+        return arr
+    }
+
     const frequencyMap = new Map<T, number>()
     arr.forEach((el) => {
         if (frequencyMap.has(el)) {
